@@ -40,12 +40,12 @@ const Home = () =>{
           minHeight:"660px",
           maxWidth:"450px",
           backgroundColor:"rgba(0,0,0,.75)",
-          margin:"0 auto",
+          margin:"0 auto 90px",
           padding: "60px 68px 40px",
-          boxSizing:"border-box"
-        },
-        loginContent:{
-      
+          boxSizing:"border-box",
+          display:"flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         },
         loginTitle:{
           color:"#fff",
@@ -174,6 +174,52 @@ const Home = () =>{
           termsContainer:{
             fontSize:"13px",
             color:"#8c8c8c"
+          },
+          footer:{
+            minWidth: "190px",
+            width: "100%",
+            marginTtop: 0,
+            background: "rgba(0,0,0,.75)",
+            color: "#757575",
+            position: "relative",
+            height:"238px", //====================================!!!!!!!!!!!!!!!!!!!! GEÇİCİ !!!!!!!!!!!!!!!!!!!!====================================//
+          },
+          questionFooter:{
+            color:"#757575"
+          },
+          footerContainer:{
+            margin:"0 auto",
+            width:"90%",
+            maxWidth:"1000px"
+          },
+          faqsList:{
+            padding:0,
+            margin:0,
+          },
+          faqItem:{
+            display:"inline-block",
+            boxSizing: "border-box",
+            padding: 0,
+            marginBottom: "16px",
+            minWidth: "100px",
+            width: "25%",
+            paddingright: "12px",
+            verticalAlign: "top",
+            listStyle: "none",
+            marginleft: "0"
+          },
+          faqItemLink:{
+            color:"#757575",
+            textDecoration:"none",
+            fontSize:"16px",
+            fontFamily:"Helvetica"
+          },
+          select:{
+            backgroundColor: "#000",
+            backgroundImage: "none",
+            border: "1px solid #333",
+            padding:"12px",
+            paddingLeft:"50px"
           }
       }
 
@@ -221,8 +267,8 @@ const Home = () =>{
         <div style={styles.background}>
 
         <div style={styles.logoWrapper}>
-          <a href="#" style={{dipslay:"inline-block",lineHeight:"90px",marginLeft:"3%",}}>
-            <img src={logo} style={styles.logo} />
+          <a href="/" style={{dipslay:"inline-block",lineHeight:"90px",marginLeft:"3%",}}>
+            <img src={logo} style={styles.logo} alt=""/>
           </a>
         </div>
   
@@ -257,7 +303,7 @@ const Home = () =>{
                   <input style={styles.checkbox} type="checkbox"></input>
                   <label style={styles.rememberTitle}>Remember me</label>
                 </div>
-                <a style={styles.helpTitle}>Need Help?</a>
+                <a href="/" style={styles.helpTitle}>Need Help?</a>
               </div>
             </form>
           </div>
@@ -266,7 +312,7 @@ const Home = () =>{
             <form>
             <div style={styles.facebookMinimal}>
               <button style={styles.fbButton}>
-                <img src={fb} style={styles.fbLogo}></img>
+                <img src={fb} style={styles.fbLogo} alt=""></img>
                 <span style={styles.fbTitle}>Login with Facebook</span>
               </button>
             </div>
@@ -277,10 +323,30 @@ const Home = () =>{
               <p>
                 <span>This page is protected by Google reCAPTCHA to ensure you're not a bot.</span>
                 &nbsp;
-                <button>Learn more.</button>
+                <button style={{border:"none",color:"#0071eb",backgroundColor:"transparent"}}>Learn more.</button>
               </p>
             </div>
+            <div style={{height:"45px"}}></div>
+          </div>
+        </div>
 
+        <div style={styles.footer}>
+          <div style={styles.footerContainer}>
+            <p style={styles.questionFooter}>Questions? Call <a href="tel:0850-390-7444">0850-390-7444</a></p>
+            <ul style={styles.faqsList}>
+              <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>FAQ</span></a></li>
+              <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>Help Center</span></a></li>
+              <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>Terms of Use</span></a></li>
+              <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>Privacy</span></a></li>
+              <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>Cookie Preferences</span></a></li>
+              <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>Corporate Information</span></a></li>
+            </ul>
+            <div style={styles.languageContainer}>
+              <select style={styles.select}>
+                <option>English</option>
+                <option>Türkçe</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
