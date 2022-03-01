@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import FacebookLogin from "react-facebook-login";
 import fb from "../images/fblogo.png"
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
@@ -30,23 +29,18 @@ export default class Facebook extends Component {
 
     if (this.state.isLoggedIn) {
       fbContent = (
-        <div>
+      <div style={{
+        background:"green",
+        fontSize:"14px",
+        borderRadius:"4px",
+        margin:"0 0 16px"
+      }} id="fbSuccess">
               <div style={{
-            border:"none",
-            background:"0 0",
-            padding:0,
-            display:"flex",
-            alignItems:"center",
-            fontSize:"14px"}}>
-                <img src={fb} style={{
-            height:"20px",
-            width:"20px",
-            marginRight:"10px"
-          }} alt=""></img>
-                <span style={{color:"#737373",
-            fontSize:"13px",
-            fontWeight:"500"}}>Login with Facebook</span>
-              </div>
+          background:"green",
+          fontSize:"14px",
+          borderRadius:"4px",
+          margin:"0 0 16px"
+        }}>Loged In!</div>
             </div>
       );
     } else {

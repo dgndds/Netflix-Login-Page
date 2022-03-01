@@ -330,8 +330,10 @@ const Home = () =>{
 
       if(checkUserExist(userInfo,users)){
         setIsLogedIn(true);
+        setIsLoginSucess(true);
       }else{
-        console.log("failed")
+        setIsLoginSucess(false);
+        setIsLogedIn(false);
       }
 
       event.preventDefault();
@@ -355,7 +357,7 @@ const Home = () =>{
             </div>}
 
             {isLoggedIn && <div style={styles.successContainer}>
-              <div style={styles.error}>Loged In!</div>
+              <div style={styles.error} id="loginSuccess">Loged In!</div>
             </div>}
   
             <form onSubmit={onSubmit}>
@@ -378,7 +380,7 @@ const Home = () =>{
               </div>
               {!isUserPassValid && <div style={styles.inputError} id="passError">Your password must contain between 4 and 60 characters.</div>}
               </div>
-              <button style={styles.signInButton} type="submit" value="Submit">Sign In</button>
+              <button id="submitButton" style={styles.signInButton} type="submit" value="Submit">Sign In</button>
               
               <div style={styles.helpContainer}>
                 <div style={styles.rememberContainer}>
@@ -392,7 +394,7 @@ const Home = () =>{
 
           <div style={styles.loginOther}>
 
-            <Facebook>
+            <Facebook id="fbLogin">
             </Facebook>
 
             <div style={styles.newTitle}>New to Netflix? <a href="/" style={{color:"#fff",textDecoration:"none"}}>Sign up now</a> .</div>
