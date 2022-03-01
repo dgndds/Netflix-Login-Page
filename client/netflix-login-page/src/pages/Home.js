@@ -19,6 +19,9 @@ const Home = () =>{
 
     const [userPass, setUserPass] = useState("");
     const [isUserPassValid,setIsUserPassValid] = useState(true);
+
+    const [isCaptchaLearnMore,setIsCaptchaLearnMore] = useState(false);
+    const [isLoginSucsess,setIsLoginSucess] = useState(true);
     
     const styles = {
         background:{
@@ -35,6 +38,9 @@ const Home = () =>{
         },
         logoWrapper:{
           width:"100%",
+        },
+        loginContent:{
+          marginBottom:"65px"
         },
         loginWrapper:{
           minHeight:"660px",
@@ -53,6 +59,16 @@ const Home = () =>{
           fontWeight:700,
           marginBottom:"28px",
           fontFamily:"Helvetica",
+        },
+        errorContainer:{
+          background:"#e87c03",
+          fontSize:"14px",
+          borderRadius:"4px",
+          margin:"0 0 16px"
+        },
+        error:{
+          padding:"10px 20px",
+          color:"#fff"
         },
         userEmailInput:{
           backgroundColor: "#333",
@@ -175,17 +191,28 @@ const Home = () =>{
             fontSize:"13px",
             color:"#8c8c8c"
           },
+          capthcaInfoContainer:{
+            visibility: isCaptchaLearnMore ? "visible": "hidden",
+            height: isCaptchaLearnMore ? "100%" : "45px"
+          },
+          capthcaInfo:{
+            color:"#8c8c8c",
+            fontSize:"13px",
+            fontFamily:"Helvetica",
+          },
           footer:{
             minWidth: "190px",
             width: "100%",
-            marginTtop: 0,
             background: "rgba(0,0,0,.75)",
             color: "#757575",
             position: "relative",
             height:"238px", //====================================!!!!!!!!!!!!!!!!!!!! GEÇİCİ !!!!!!!!!!!!!!!!!!!!====================================//
+            padding:"30px 0 30px 0",
+            fontFamily:"Helvetica"
           },
           questionFooter:{
-            color:"#757575"
+            color:"#757575",
+            marginBottom:"30px"
           },
           footerContainer:{
             margin:"0 auto",
@@ -214,12 +241,18 @@ const Home = () =>{
             fontSize:"16px",
             fontFamily:"Helvetica"
           },
+          languageContainer:{
+            marginTop:"20px"
+          },
           select:{
             backgroundColor: "#000",
             backgroundImage: "none",
             border: "1px solid #333",
             padding:"12px",
-            paddingLeft:"50px"
+            color: "#999",
+            paddingRight: "26px",
+            fontSize: "13px",
+            fontFamily: "Helvetica"
           }
       }
 
@@ -263,6 +296,17 @@ const Home = () =>{
         }
     }
 
+    function onLearnMore(){
+      setIsCaptchaLearnMore(true);
+    }
+
+    function onSubmit(event){
+      setIsLoginSucess(false);
+      console.log(event.target[0].value);
+      console.log(event.target[1].value);
+      event.preventDefault();
+    }
+
     return (
         <div style={styles.background}>
 
@@ -275,8 +319,12 @@ const Home = () =>{
         <div style={styles.loginWrapper}>
           <div style={styles.loginContent}>
             <h1 style={styles.loginTitle}>Sign In</h1>
+
+            {!isLoginSucsess && <div style={styles.errorContainer}>
+              <div style={styles.error}>Sorry, we can't find an account with this email address. Please try again or <a href="/" style={{color:"#fff"}}>create a new account</a>.</div>
+            </div>}
   
-            <form>
+            <form onSubmit={onSubmit}>
               <div style={{marginBottom:"16px"}}>
                 <div style={styles.inputPlacement}>
                     <label>
@@ -296,7 +344,7 @@ const Home = () =>{
               </div>
               {!isUserPassValid && <div style={styles.inputError}>Your password must contain between 4 and 60 characters.</div>}
               </div>
-              <button style={styles.signInButton} type="submit">Sign In</button>
+              <button style={styles.signInButton} type="submit" value="Submit">Sign In</button>
               
               <div style={styles.helpContainer}>
                 <div style={styles.rememberContainer}>
@@ -323,16 +371,18 @@ const Home = () =>{
               <p>
                 <span>This page is protected by Google reCAPTCHA to ensure you're not a bot.</span>
                 &nbsp;
-                <button style={{border:"none",color:"#0071eb",backgroundColor:"transparent"}}>Learn more.</button>
+                <button style={{border:"none",color:"#0071eb",backgroundColor:"transparent"}} onClick={()=>onLearnMore()}>Learn more.</button>
               </p>
             </div>
-            <div style={{height:"45px"}}></div>
+            <div style={styles.capthcaInfoContainer}>
+              <span style={styles.capthcaInfo}><p>The information collected by Google reCAPTCHA is subject to the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a>, and is used for providing, maintaining, and improving the reCAPTCHA service and for general security purposes (it is not used for personalized advertising by Google).</p></span>
+            </div>
           </div>
         </div>
 
         <div style={styles.footer}>
           <div style={styles.footerContainer}>
-            <p style={styles.questionFooter}>Questions? Call <a href="tel:0850-390-7444">0850-390-7444</a></p>
+            <p style={styles.questionFooter}>Questions? Call <a href="tel:0850-390-7444" style={{color:"#757575",textDecoration:"none"}}>0850-390-7444</a></p>
             <ul style={styles.faqsList}>
               <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>FAQ</span></a></li>
               <li style={styles.faqItem}><a style={styles.faqItemLink} href="/"><span>Help Center</span></a></li>
