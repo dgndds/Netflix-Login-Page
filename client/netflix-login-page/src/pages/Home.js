@@ -1,10 +1,16 @@
 import { useState } from "react"
 import bg from "../images/bg.jpg"
-import fb from "../images/fblogo.png"
+
 import logo from "../images/logo.svg"
+import Facebook from "./Facebook"
 
 const Home = () =>{
+
+    const users = [
+      {email:"eaktas2@gmail.com",pass:"123123"}
+    ]
     
+    const [isLoggedIn,setIsLogedIn] = useState(false);
     const [focusFontSize,setfocusFontSize] = useState("16px");
     const [focusTopValue,setfocusTopValue] = useState("50%");
 
@@ -62,6 +68,12 @@ const Home = () =>{
         },
         errorContainer:{
           background:"#e87c03",
+          fontSize:"14px",
+          borderRadius:"4px",
+          margin:"0 0 16px"
+        },
+        successContainer:{
+          background:"green",
           fontSize:"14px",
           borderRadius:"4px",
           margin:"0 0 16px"
@@ -137,7 +149,6 @@ const Home = () =>{
           },
           rememberContainer:{
             flexGrow:1,
-            // paddingLeft:"20px"
           },
           checkbox:{
             margin:0,
@@ -206,7 +217,7 @@ const Home = () =>{
             background: "rgba(0,0,0,.75)",
             color: "#757575",
             position: "relative",
-            height:"238px", //====================================!!!!!!!!!!!!!!!!!!!! GEÇİCİ !!!!!!!!!!!!!!!!!!!!====================================//
+            height:"238px",
             padding:"30px 0 30px 0",
             fontFamily:"Helvetica"
           },
@@ -300,10 +311,29 @@ const Home = () =>{
       setIsCaptchaLearnMore(true);
     }
 
+    function checkUserExist(obj, list) {
+
+      var i;
+      for (i = 0; i < list.length; i++) {
+        console.log("asd",list[i])
+        console.log("oasdasd",obj)
+          if (JSON.stringify(list[i]) === JSON.stringify(obj)) {
+              return true;
+          }
+      }
+  
+      return false;
+  }
+
     function onSubmit(event){
-      setIsLoginSucess(false);
-      console.log(event.target[0].value);
-      console.log(event.target[1].value);
+      const userInfo = {email:userEmail,pass:userPass}
+
+      if(checkUserExist(userInfo,users)){
+        setIsLogedIn(true);
+      }else{
+        console.log("failed")
+      }
+
       event.preventDefault();
     }
 
@@ -316,12 +346,16 @@ const Home = () =>{
           </a>
         </div>
   
-        <div style={styles.loginWrapper}>
+        <div style={styles.loginWrapper} id="outerDiv">
           <div style={styles.loginContent}>
-            <h1 style={styles.loginTitle}>Sign In</h1>
+            <h1 style={styles.loginTitle}>Sign In </h1>
 
             {!isLoginSucsess && <div style={styles.errorContainer}>
               <div style={styles.error}>Sorry, we can't find an account with this email address. Please try again or <a href="/" style={{color:"#fff"}}>create a new account</a>.</div>
+            </div>}
+
+            {isLoggedIn && <div style={styles.successContainer}>
+              <div style={styles.error}>Loged In!</div>
             </div>}
   
             <form onSubmit={onSubmit}>
@@ -332,7 +366,7 @@ const Home = () =>{
                     <label for="userLogin" style={styles.inputLabel}>Email or phone number</label>
                     </label>
                 </div>
-                {!isUserEmailValid && <div style={styles.inputError}>Please enter a valid email.</div>}
+                {!isUserEmailValid && <div style={styles.inputError} id="emailError">Please enter a valid email.</div>}
               </div>
               
               <div style={{marginBottom:"16px"}}>
@@ -342,7 +376,7 @@ const Home = () =>{
                   <label for="userPass" style={styles.passInputLabel}>Password</label>
                 </label>
               </div>
-              {!isUserPassValid && <div style={styles.inputError}>Your password must contain between 4 and 60 characters.</div>}
+              {!isUserPassValid && <div style={styles.inputError} id="passError">Your password must contain between 4 and 60 characters.</div>}
               </div>
               <button style={styles.signInButton} type="submit" value="Submit">Sign In</button>
               
@@ -357,14 +391,9 @@ const Home = () =>{
           </div>
 
           <div style={styles.loginOther}>
-            <form>
-            <div style={styles.facebookMinimal}>
-              <button style={styles.fbButton}>
-                <img src={fb} style={styles.fbLogo} alt=""></img>
-                <span style={styles.fbTitle}>Login with Facebook</span>
-              </button>
-            </div>
-            </form>
+
+            <Facebook>
+            </Facebook>
 
             <div style={styles.newTitle}>New to Netflix? <a href="/" style={{color:"#fff",textDecoration:"none"}}>Sign up now</a> .</div>
             <div style={styles.termsContainer}>
